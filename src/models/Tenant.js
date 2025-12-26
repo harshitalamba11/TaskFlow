@@ -1,33 +1,17 @@
 import mongoose from 'mongoose';
-const userSchema=new mongoose.Schema(
-    {
-        tenantId:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'Tenant',
-            required:true,
-            index:true,
-        },
-        name:{
-            type:String,
-            required:true,
-        },
-        email:{
-            type:String,
-            required:true,
-            unique:true,
-            index:true,
-        },
-        password:{
-            type:String,
-            required:true,
-        },
-        role:{
-            type:String,
-            enum:['ORG_ADMIN','MEMBER'],
-            default:'MEMBER',
-        },
-    },
-    { timestamps:true}
-);
+const tenantSchema = new mongoose.Schema({
+    name: { type: String, required: true },
 
-export default mongoose.model('User',userSchema);
+    plan: {
+        type: String,
+        enum: ["FREE", "PRO", "ENTERPRISE"],
+        default: "FREE",
+    },
+
+    status: {
+        type: String,
+        enum: ["ACTIVE", "SUSPENDED"],
+        default: "ACTIVE",
+    },
+}, { timestamps: true });
+export default mongoose.model('Tenant',tenantSchema);
