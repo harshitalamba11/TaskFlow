@@ -15,6 +15,9 @@ app.use('/test-tenant',async(req,res)=>{
 import authRoutes from "./routes/authRoutes.js"
 app.use("/api/authRoutes",authRoutes);
 
+import projectRoutes from "./routes/projectRoutes.js"
+app.use("/api/projects",projectRoutes);
+
 app.get('/',(req,res)=>{
     res.send("TASKFLOW API RUNNING");
 })
