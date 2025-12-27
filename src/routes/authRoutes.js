@@ -12,6 +12,7 @@ router.post("/register", register);
 
 // Member registration
 router.post("/register-user", registerUser);
+// router.post("/register-admin", registerAdmin);
 
 // Login
 router.post("/login", login);

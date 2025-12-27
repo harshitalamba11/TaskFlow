@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Tenant from "../models/Tenant.js";
 import User from "../models/User.js";
+// import Admin from "../models/Admin.js";
 
 //1.registering a tenant/company and admin
 export const register=async(req,res)=>{
@@ -30,6 +31,7 @@ export const register=async(req,res)=>{
         //create the user
         const user=await User.create({
             tenantId:tenant._id,  //common as user can have data access of his company with tenantid
+            companyName,
             name,
             email,
             password:hashpassword,
@@ -56,13 +58,15 @@ export const register=async(req,res)=>{
     //2.registering a member of particular tenant
     export const registerUser=async(req,res)=>{
         try{
-            const {companyName,name,email,password}=req.body;
+            const {companyName,name,email,role,password}=req.body;
             const tenant=await Tenant.findOne({name:companyName});
             if(!tenant){
                 return res.status(404).json({
                     message:"Company not found. Please contact admin.",
                 });
             }
+            
+
             const existingUser = await User.findOne({ email });
             if (existingUser) {
                 return res.status(400).json({ message: "User already exists" });
@@ -74,7 +78,7 @@ export const register=async(req,res)=>{
                 name,
                 email,
                 password:hashpassword,
-                role:"MEMBER",
+                role:role,
             });
 
             res.status(201).json({
@@ -84,6 +88,8 @@ export const register=async(req,res)=>{
             res.status(500).json({ message: err.message });
         }
     };
+
+
 
 //login-common for all
 export const login=async(req,res)=>{
