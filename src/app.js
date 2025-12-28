@@ -1,25 +1,22 @@
-import express from 'express';
-const app=express();
+import express from "express";
+import cors from "cors";
 
-import cors from 'cors';
+import authRoutes from "./routes/authRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
+
+const app = express();
+
+// middlewares
 app.use(cors());
 app.use(express.json());
 
-import Tenant from "./models/User.js";
-app.use('/test-tenant',async(req,res)=>{
-    // const tenant=await Tenant.create({name:"Test Tenant"});
-    res.json("tenant");
+// routes
+app.use("/api/auth", authRoutes);
+app.use("/api/projects", projectRoutes);
+
+// health check
+app.get("/", (req, res) => {
+  res.send("TASKFLOW API RUNNING");
 });
-
-//
-import authRoutes from "./routes/authRoutes.js"
-app.use("/api/authRoutes",authRoutes);
-
-import projectRoutes from "./routes/projectRoutes.js"
-app.use("/api/projects",projectRoutes);
-
-app.get('/',(req,res)=>{
-    res.send("TASKFLOW API RUNNING");
-})
 
 export default app;

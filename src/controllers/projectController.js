@@ -1,0 +1,17 @@
+import Project from "../models/Project.js";
+
+export const createProject=async(req,res)=>{
+    try{
+        const {name,description}=req.body;
+        const project=await Project.create({
+            tenantId:req.user.tenantId,
+            name,
+            description,
+            createdBy:req.user.userId
+        });
+        res.status(201).json(project);
+    }
+    catch(err){
+        res.status(500).json({ message: err.message });
+    }
+};
