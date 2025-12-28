@@ -15,3 +15,14 @@ export const createProject=async(req,res)=>{
         res.status(500).json({ message: err.message });
     }
 };
+export const getProject=async(req,res)=>{
+    try{
+        const projects=await Project.find({
+            tenantId:req.user.tenantId,
+        })
+        res.json(projects);
+    }
+    catch(err){
+        res.status(500).json({ message: err.message });
+    }
+}
