@@ -1,5 +1,6 @@
 import Task from "../models/Task.js";
 import Project from "../models/Project.js";
+import TaskActivity from "../models/TaskActivity.js";
 
 export const createTask=async(req,res)=>{
     try{
@@ -21,6 +22,13 @@ export const createTask=async(req,res)=>{
             assignedTo,
             createdTo:req.user.userId,
         });
+        //  audit log
+        await TaskActivity.create({
+        taskId: task._id,
+        tenantId: req.user.tenantId,
+        action: "TASK_CREATED",
+        performedBy: req.user.userId
+  });
         res.status(201).json(task);
     }
     catch(err){

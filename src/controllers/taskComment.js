@@ -15,6 +15,13 @@ export const taskComment=async(req,res)=>{
         userId:req.user.userId,
         comment:req.body.comment
     });
+    //  audit log
+            await TaskActivity.create({
+            taskId: task._id,
+            tenantId: req.user.tenantId,
+            action: "User commented on task",
+            performedBy: req.user.userId
+            });
     res.status(201).json(comment);
 }
 

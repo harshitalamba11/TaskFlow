@@ -13,4 +13,10 @@ export const dashboard=async(req,res)=>{
     res.status(200).json({
         users,totalProjects,totaltasks,completedtasks
     });
+    await TaskActivity.create({
+            taskId: task._id,
+            tenantId: req.user.tenantId,
+            action: "Dashboard viewed",
+            performedBy: req.user.userId
+            });
 }

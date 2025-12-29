@@ -48,7 +48,12 @@ export const register=async(req,res)=>{
         process.env.JWT_SECRET,
         {expiresIn:"7d"}
     );
-
+        await TaskActivity.create({
+            taskId: task._id,
+            tenantId: req.user.tenantId,
+            action: "Tenant Registered",
+            performedBy: req.user.userId
+        });
     res.status(201).json({token});
     }catch(err){
         res.status(500).json({ message: err.message });
@@ -84,6 +89,12 @@ export const register=async(req,res)=>{
             res.status(201).json({
                 message: "User registered successfully. Please login.",
             });
+            await TaskActivity.create({
+            taskId: task._id,
+            tenantId: req.user.tenantId,
+            action: "New User Registered",
+            performedBy: req.user.userId
+            });
         }catch(err){
             res.status(500).json({ message: err.message });
         }
@@ -114,7 +125,12 @@ export const login=async(req,res)=>{
             process.env.JWT_SECRET,
             { expiresIn: "7d" }
         );
-
+        await TaskActivity.create({
+            taskId: task._id,
+            tenantId: req.user.tenantId,
+            action: "User Signin",
+            performedBy: req.user.userId
+            });
         res.json({ token });
     } catch (err) {
         res.status(500).json({ message: err.message });

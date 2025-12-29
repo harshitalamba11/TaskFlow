@@ -9,6 +9,12 @@ export const createProject=async(req,res)=>{
             description,
             createdBy:req.user.userId
         });
+        await TaskActivity.create({
+            taskId: task._id,
+            tenantId: req.user.tenantId,
+            action: "Project Created",
+            performedBy: req.user.userId
+            });
         res.status(201).json(project);
     }
     catch(err){
