@@ -1,6 +1,7 @@
 import Task from "../models/Task.js";
 import Project from "../models/Project.js";
 import TaskActivity from "../models/TaskActivity.js";
+import Notification from "../models/Notification.js";
 
 export const createTask=async(req,res)=>{
     try{
@@ -22,13 +23,19 @@ export const createTask=async(req,res)=>{
             assignedTo,
             createdTo:req.user.userId,
         });
+        //notification log
+        await Notification.create({
+          userId:assignedTo,
+          tenantId:req.user.tenantId,
+          message:"You are assigned a new Task",
+        });
         //  audit log
         await TaskActivity.create({
-        taskId: task._id,
-        tenantId: req.user.tenantId,
-        action: "TASK_CREATED",
-        performedBy: req.user.userId
-  });
+          taskId: task._id,
+          tenantId: req.user.tenantId,
+          action: "TASK_CREATED",
+          performedBy: req.user.userId
+        });
         res.status(201).json(task);
     }
     catch(err){

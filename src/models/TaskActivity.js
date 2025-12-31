@@ -5,7 +5,7 @@ const taskActivitySchema = new mongoose.Schema(
     taskId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Task",
-      required: true
+      required: false
     },
     tenantId: {
       type: mongoose.Schema.Types.ObjectId,

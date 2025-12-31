@@ -1,5 +1,6 @@
 import  TaskComment from "../models/taskCommentSchema.js";
 import Task from "../models/Task.js";
+import Notification from "../models/Notification.js";
 
 export const taskComment=async(req,res)=>{
     const task=await Task.findOne({
@@ -15,6 +16,18 @@ export const taskComment=async(req,res)=>{
         userId:req.user.userId,
         comment:req.body.comment
     });
+    //notification log
+    await Notification.create({
+        userId: assignedTo,
+        tenantId: req.user.tenantId,
+        type: "TASK_COMMENT",
+        message: `New comment added on your task`,
+        metadata: {
+            taskId: task._id,
+            commentedBy: req.user.userId,
+        },
+    });
+
     //  audit log
             await TaskActivity.create({
             taskId: task._id,

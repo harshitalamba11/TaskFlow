@@ -1,6 +1,7 @@
 import Project from "../models/Project.js";
 import Task from "../models/Task.js";
 import User from "../models/User.js";
+import TaskActivity from "../models/TaskActivity.js";
 
 export const dashboard=async(req,res)=>{
     const tenantId=req.user.tenantId;
@@ -10,13 +11,14 @@ export const dashboard=async(req,res)=>{
     const completedtasks=await Task.countDocuments({
         tenantId,status:"done"
     });
-    res.status(200).json({
-        users,totalProjects,totaltasks,completedtasks
-    });
+    
     await TaskActivity.create({
-            taskId: task._id,
+            // taskId: task._id,
             tenantId: req.user.tenantId,
             action: "Dashboard viewed",
             performedBy: req.user.userId
-            });
+    });
+    res.status(200).json({
+        users,totalProjects,totaltasks,completedtasks
+    });
 }
