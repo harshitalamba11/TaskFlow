@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios';
-
+import { Link, useNavigate } from 'react-router-dom';
 const Register=()=>{
   const [data,setdata]=useState({
     companyName:'',
@@ -47,6 +47,7 @@ const Register=()=>{
       <input type="password" className="placeholder-gray-400 border p-2 w-full my-2 outline-none" value={data.password} onChange={(e)=>{setdata({...data,password:e.target.value})}}placeholder="Enter password"></input>
       </div>
       <button className='bg-blue-600 inline-block p-2 rounded' onClick={submit}>Register</button>
+      <p className=' p-3 text-center'>Already Registered? <Link to="/login">Sign In</Link></p>
       </div>
     </div>
   )
