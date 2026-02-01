@@ -16,7 +16,9 @@ import {manager} from "./controllers/authController.js";
 const app = express();
 
 // middlewares
-app.use(cors());
+app.use(cors({
+  origin:["http://localhost:5000","https://lustrous-arithmetic-3e9506.netlify.app/"]
+}));
 app.use(express.json());
 
 // routes
