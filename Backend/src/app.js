@@ -17,7 +17,7 @@ const app = express();
 
 // middlewares
 app.use(cors({
-  origin:["http://localhost:5000","https://lustrous-arithmetic-3e9506.netlify.app/"]
+  origin:["http://localhost:5000","https://lustrous-arithmetic-3e9506.netlify.app"]
 }));
 app.use(express.json());
 
