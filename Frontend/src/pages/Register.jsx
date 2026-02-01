@@ -11,7 +11,7 @@ const Register=()=>{
   async function submit(){
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://harshitalamba11-task-flow-saas.vercel.app/api/auth/register",
         data
       );
       console.log(res.data);
