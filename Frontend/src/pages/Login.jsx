@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+
 const Login=()=>{
     const navigate=useNavigate();
     const [data,setdata]=useState({
@@ -11,7 +12,8 @@ const Login=()=>{
   async function submit(){
     try {
       if(data.email==='' || data.password==='') alert("Incomplete Details!!");
-      const res=await axios.post("http://localhost:5000/api/auth/login",data);
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const res=await axios.post(`${apiUrl}/api/auth/login`,data);
       localStorage.setItem("token", res.data.token);
       console.log(res.data.token);
       console.log("Login successful");

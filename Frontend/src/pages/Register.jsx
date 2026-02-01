@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+
 const Register=()=>{
   const [data,setdata]=useState({
     companyName:'',
@@ -10,11 +11,9 @@ const Register=()=>{
   });
   async function submit(){
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
-        data
-      );
-      console.log(res.data);
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const res = await axios.post(`${apiUrl}/api/auth/register`, data);
+      // console.log(res.data);
       setdata({
         companyName: "",
         name: "",

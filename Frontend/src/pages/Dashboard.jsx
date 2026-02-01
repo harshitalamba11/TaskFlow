@@ -6,6 +6,8 @@ import DashboardMEMBER from '../components/DashboardMEMBER';
 // import 
 const Dashboard=()=>{
     const [role,setrole]= useState(null);
+    const [loading,setloading]=useState(true);
+
     useEffect(()=>{
     const token=localStorage.getItem("token");
     const decoded=jwtDecode(token);
@@ -25,7 +27,9 @@ const Dashboard=()=>{
                 console.error("Invalid Token");
             }
         }
+        setloading(false);
     },[]);
+    if (loading) return <div>Loading...</div>;
     return(
         <>
         <Navbar/>

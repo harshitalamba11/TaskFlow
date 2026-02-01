@@ -7,18 +7,18 @@ const DashboardADMIN=()=>{
     useEffect(()=>{
     const token=localStorage.getItem("token");
     const decoded=jwtDecode(token);
-    console.log(decoded);
+    // console.log(decoded);
 
         if(token){
             try{
-                
-                    fetch(`http://localhost:5000/api/projects/${decoded.tenantId}`)
+                    const apiUrl = import.meta.env.VITE_API_URL;
+                    fetch(`${apiUrl}/api/projects/${decoded.tenantId}`)
                     .then(res=>res.json())
                     .then(data=>setCountProject(data.totalEntries));
-                    fetch(`http://localhost:5000/api/tasks/${decoded.tenantId}`)
+                    fetch(`${apiUrl}/api/tasks/${decoded.tenantId}`)
                     .then(res=>res.json())
                     .then(data=>setTasks(data.totalEntries));
-                    fetch(`http://localhost:5000/api/employees/${decoded.tenantId}`)
+                    fetch(`${apiUrl}/api/employees/${decoded.tenantId}`)
                     .then(res=>res.json())
                     .then(data=>setEmployee(data.totalEntries));
                     

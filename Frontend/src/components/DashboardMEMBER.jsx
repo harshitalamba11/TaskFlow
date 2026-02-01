@@ -12,13 +12,14 @@ const DashboardMEMBER=()=>{
 
         if(token){
             try{
-                fetch(`http://localhost:5000/api/projects/member/${decoded.userName}`)
+                const apiUrl = import.meta.env.VITE_API_URL;
+                fetch(`${apiUrl}/api/projects/member/${decoded.userName}`)
                 .then(res=>res.json())
                 .then(data=>setCountProject(data.totalEntries));
-                fetch(`http://localhost:5000/api/tasks/member/${decoded.userId}`)
+                fetch(`${apiUrl}/api/tasks/member/${decoded.userId}`)
                 .then(res=>res.json())
                 .then(data=>setTasks(data.totalEntries));
-                fetch(`http://localhost:5000/api/manager/${decoded.userId}`)
+                fetch(`${apiUrl}/api/manager/${decoded.userId}`)
                 .then(res=>res.json())
                 .then(data=>setmanager(data.Manager));
             }catch (error) {
