@@ -143,3 +143,32 @@ export const login=async(req,res)=>{
         res.status(500).json({ message: err.message });
     }
 };
+
+export const employees=async(req,res)=>{
+    try{
+        const {id}=req.params;
+        const count=await User.countDocuments({tenantId:id,role:'MEMBER'});
+        return res.status(200).json({totalEntries:count});
+    }
+    catch(err){
+        res.status(500).json({message:err.message});
+    }
+};
+
+export const manager=async(req,res)=>{
+    try{
+        const {id}=req.params;
+        const user=await User.findOne({_id:id});
+        if(!user){
+            return res.status(404).json({ message: "User doesn't exists!" });
+        }
+        // console.log(user.role);
+        if(user.role==='ORG_ADMIN') return res.status(404).json({ message: "No superior authority!" });
+        // console.log(user.tenantId);
+        const tenant=await User.findOne({tenantId:user.tenantId,role:'ORG_ADMIN'});
+        return res.status(200).json({Manager:tenant.name});
+    }
+    catch(err){
+        res.status(500).json({message:err.message});
+    }
+}

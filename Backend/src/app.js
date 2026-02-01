@@ -10,6 +10,8 @@ import Gettenant from "./controllers/gettenant.js";
 import ProjectControllero from "./controllers/getProjects.js";
 import {getTasksBytenantId} from "./controllers/taskController.js";
 import {getTasksByuserId} from "./controllers/taskController.js";
+import {employees} from "./controllers/authController.js";
+import {manager} from "./controllers/authController.js";
 // import Details from "./controllers/Details.js";
 const app = express();
 
@@ -32,6 +34,8 @@ app.get("/api/projects/:id",ProjectControllero.GetProjects);
 app.get("/api/projects/member/:name", ProjectControllero.GetProjectsMember);
 app.get("/api/tasks/:id",getTasksBytenantId);
 app.get("/api/tasks/member/:id",getTasksByuserId);
+app.get("/api/employees/:id",employees);
+app.get("/api/manager/:id",manager);
 app.get("/projects")
 
 export default app;

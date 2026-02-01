@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 const GetProjects=async (req,res)=>{
     try{
         const {id}=req.params;
-        console.log(id);
+        // console.log(id);
         const count = await Projects.countDocuments({ 
             tenantId: new mongoose.Types.ObjectId(id) 
         });

@@ -40,7 +40,7 @@ const Login=()=>{
             <label className='mr-4 font-medium'>Password</label>
             <input type="password" className="placeholder-gray-400 border p-2 w-full my-2 outline-none" value={data.password} onChange={(e)=>{setdata({...data,password:e.target.value})}}placeholder="Enter password"></input>
             </div>
-            <button className='bg-blue-600 inline-block p-2 rounded' onClick={submit}>Login</button>
+            <button className='bg-blue-600 inline-block p-2 rounded text-white font-bold text-lg' onClick={submit}>Login</button>
             </div>
         </>
     );
