@@ -12,13 +12,13 @@ const DashboardMEMBER=()=>{
 
         if(token){
             try{
-                fetch(`https://harshitalamba11-task-flow-saas.vercel.app/api/projects/member/${decoded.userName}`)
+                fetch(`http://localhost:5000/api/projects/member/${decoded.userName}`)
                 .then(res=>res.json())
                 .then(data=>setCountProject(data.totalEntries));
-                fetch(`https://harshitalamba11-task-flow-saas.vercel.app/api/tasks/member/${decoded.userId}`)
+                fetch(`http://localhost:5000/api/tasks/member/${decoded.userId}`)
                 .then(res=>res.json())
                 .then(data=>setTasks(data.totalEntries));
-                fetch(`https://harshitalamba11-task-flow-saas.vercel.app/api/manager/${decoded.userId}`)
+                fetch(`http://localhost:5000/api/manager/${decoded.userId}`)
                 .then(res=>res.json())
                 .then(data=>setmanager(data.Manager));
             }catch (error) {

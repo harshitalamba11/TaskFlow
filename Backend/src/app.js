@@ -16,11 +16,7 @@ import {manager} from "./controllers/authController.js";
 const app = express();
 
 // middlewares
-app.use(cors({
-  origin: "https://harshitalamba11-task-flow-saas.vercel.app", // Your actual frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 // routes

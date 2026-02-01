@@ -11,7 +11,7 @@ const Login=()=>{
   async function submit(){
     try {
       if(data.email==='' || data.password==='') alert("Incomplete Details!!");
-      const res=await axios.post("https://harshitalamba11-task-flow-saas.vercel.app/api/auth/login",data);
+      const res=await axios.post("http://localhost:5000/api/auth/login",data);
       localStorage.setItem("token", res.data.token);
       console.log(res.data.token);
       console.log("Login successful");
