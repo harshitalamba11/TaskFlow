@@ -10,9 +10,11 @@ const Navbar=()=>{
     const token=localStorage.getItem("token");
     const [company, setCompany] = useState(null);
     const [user, setUser] = useState(null);
-
+    const rawUrl = import.meta.env.VITE_API_URL;
+    // Remove trailing slash if it exists
+    const apiUrl = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
     const getCompany=async(id)=>{
-        fetch(`http://localhost:5000/tenant/${id}`)
+        fetch(`${apiUrl}/tenant/${id}`)
         .then(res => res.json())
         .then(data => {
         setCompany(data.name);
