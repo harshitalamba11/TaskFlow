@@ -11,7 +11,7 @@ const Login=()=>{
   });
   async function submit(){
     try {
-      if(data.email==='' || data.password==='') alert("Incomplete Details!!");
+      if(data.email==='' || data.password===''){ alert("Incomplete Details!!"); return ;}
       const apiUrl = import.meta.env.VITE_API_URL;
       const res=await axios.post(`${apiUrl}/api/auth/login`,data);
       localStorage.setItem("token", res.data.token);
