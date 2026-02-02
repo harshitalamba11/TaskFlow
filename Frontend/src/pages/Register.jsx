@@ -11,7 +11,9 @@ const Register=()=>{
   });
   async function submit(){
     try {
-      const apiUrl = import.meta.env.VITE_API_URL;
+      const rawUrl = import.meta.env.VITE_API_URL;
+      // Remove trailing slash if it exists
+      const apiUrl = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
       const res = await axios.post(`${apiUrl}/api/auth/register`, data);
       // console.log(res.data);
       setdata({

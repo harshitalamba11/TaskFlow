@@ -11,7 +11,9 @@ const DashboardADMIN=()=>{
 
         if(token){
             try{
-                    const apiUrl = import.meta.env.VITE_API_URL;
+                    const rawUrl = import.meta.env.VITE_API_URL;
+                    // Remove trailing slash if it exists
+                    const apiUrl = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
                     fetch(`${apiUrl}/api/projects/${decoded.tenantId}`)
                     .then(res=>res.json())
                     .then(data=>setCountProject(data.totalEntries));

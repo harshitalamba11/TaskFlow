@@ -12,7 +12,9 @@ const Login=()=>{
   async function submit(){
     try {
       if(data.email==='' || data.password===''){ alert("Incomplete Details!!"); return ;}
-      const apiUrl = import.meta.env.VITE_API_URL;
+      const rawUrl = import.meta.env.VITE_API_URL;
+      // Remove trailing slash if it exists
+      const apiUrl = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
       const res=await axios.post(`${apiUrl}/api/auth/login`,data);
       localStorage.setItem("token", res.data.token);
       console.log(res.data.token);
